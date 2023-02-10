@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.sns.controller.request.UserJoinRequest;
 import com.myproject.sns.controller.request.UserLoginRequest;
+import com.myproject.sns.exception.ErrorCode;
 import com.myproject.sns.exception.SnsApplicationException;
 import com.myproject.sns.model.User;
 import com.myproject.sns.service.UserService;
@@ -58,7 +59,7 @@ public class UserControllerTest {
         String password = "password";
 
         // TODO : mocking
-        when(userService.join(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.join(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -91,7 +92,7 @@ public class UserControllerTest {
         String password = "password";
 
         // TODO : mocking
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,7 +109,7 @@ public class UserControllerTest {
         String password = "password";
 
         // TODO : mocking
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
